@@ -21,4 +21,8 @@ public class LoginReqVo {
      * 验证码
      */
     private String code;
+    /**
+     * 会话ID
+     */
+    private String sessionId;
 }

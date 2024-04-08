@@ -2,6 +2,8 @@ package com.xbb.stock.mapper;
 
 import com.xbb.stock.pojo.entity.StockBusiness;
 
+import java.util.List;
+
 /**
  * @Entity com.xbb.stock.pojo.entity.StockBusiness
  */
@@ -18,5 +20,7 @@ public interface StockBusinessMapper {
     int updateByPrimaryKeySelective(StockBusiness record);
 
     int updateByPrimaryKey(StockBusiness record);
+
+    List<String> getAllStockCode();
 
 }

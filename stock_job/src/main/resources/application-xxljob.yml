@@ -1,0 +1,17 @@
+# XXLJOB参数配置
+xxl:
+  job:
+    accessToken: default_token
+    admin:
+      addresses: http://127.0.0.1:8093/xxl-job-admin
+    executor:
+      appname: stock-job-executor
+      address:
+      ip:
+      port: 7979
+      logpath: ./logs
+      logretentiondays: 30
+logging:
+  config: classpath:logback.xml
+
+

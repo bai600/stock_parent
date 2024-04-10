@@ -23,31 +23,31 @@ public class MqConfig {
         return new Jackson2JsonMessageConverter();
     }
 
-//    /**
-//     * 定义路由股票信息的主题交换机
-//     * @return
-//     */
-//    @Bean
-//    public TopicExchange innerMarketTopicExchange(){
-//        return new TopicExchange("stockExchange",true,false);
-//    }
-//
-//    /**
-//     * 国内大盘信息队列
-//     * @return
-//     */
-//    @Bean
-//    public Queue innerMarketQueue(){
-//        return new Queue("innerMarketQueue",true);
-//    }
-//
-//    /**
-//     * 绑定国内大盘信息队列到指定交换机
-//     * @return
-//     */
-//    @Bean
-//    public Binding bindingInnerMarket2TopicExchange(){
-//        return BindingBuilder.bind(innerMarketQueue()).to(innerMarketTopicExchange())
-//                .with("inner.market");
-//    }
+    /**
+     * 定义路由股票信息的主题交换机
+     * @return
+     */
+    @Bean
+    public TopicExchange innerMarketTopicExchange(){
+        return new TopicExchange("stockExchange",true,false);
+    }
+
+    /**
+     * 国内大盘信息队列
+     * @return
+     */
+    @Bean
+    public Queue innerMarketQueue(){
+        return new Queue("innerMarketQueue",true);
+    }
+
+    /**
+     * 绑定国内大盘信息队列到指定交换机
+     * @return
+     */
+    @Bean
+    public Binding bindingInnerMarket2TopicExchange(){
+        return BindingBuilder.bind(innerMarketQueue()).to(innerMarketTopicExchange())
+                .with("inner.market");
+    }
 }

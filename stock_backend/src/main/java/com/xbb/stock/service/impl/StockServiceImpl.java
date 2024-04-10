@@ -52,7 +52,7 @@ public class StockServiceImpl implements StockService {
             //1 获取最新交易时间点精确到分钟
             Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
             //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
-            curDate= DateTime.parse("2021-12-28 09:32:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+            curDate= DateTime.parse("2024-04-08 11:35:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
             //2 获取大盘编码集合
             List<String> innerCodes = stockInfoConfig.getInner();
             //3 调用mapper查询数据
@@ -62,6 +62,7 @@ public class StockServiceImpl implements StockService {
         });
         return result;
     }
+
 
     @Override
     public R<List<StockBlockDomain>> sectorAllLimit() {

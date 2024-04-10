@@ -2,12 +2,16 @@ package com.xbb.stock.pojo.vo;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 /**
  * @Description 股票相关的值对象封装
  */
 @ConfigurationProperties(prefix = "stock")
+@Configuration
 @Data
 public class StockInfoConfig {
     //A股大盘ID集合

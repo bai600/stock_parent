@@ -18,4 +18,9 @@ public interface StockTimerTaskService {
      * 获取板块实时数据信息
      */
     void getStockBlockInfo();
+
+    /**
+     * 取国外盘的实时数据信息
+     */
+    void getOuterMarketInfo();
 } 

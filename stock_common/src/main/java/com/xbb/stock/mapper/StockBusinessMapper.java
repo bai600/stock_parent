@@ -1,8 +1,10 @@
 package com.xbb.stock.mapper;
 
 import com.xbb.stock.pojo.entity.StockBusiness;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Entity com.xbb.stock.pojo.entity.StockBusiness
@@ -23,4 +25,7 @@ public interface StockBusinessMapper {
 
     List<String> getAllStockCode();
 
+    List<Map> getStockCodeandName(@Param("searchStr") String searchStr);
+
+    Map getStockDescribe(@Param("code") String code);
 }

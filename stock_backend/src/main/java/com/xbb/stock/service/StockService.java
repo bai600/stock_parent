@@ -30,4 +30,16 @@ public interface StockService {
 
     R<List<Stock4EvrDayDomain>> getStockScreenDKline(String code);
 
+    R<List<OuterMarketDomain>> getOuterMarketInfo();
+
+    R<List<Map>> searchStockCodeandName(String searchStr);
+
+    R<Map> getStockDescribe(String code);
+
+    R<StockRtDomain> getStockDetail(String code);
+
+    R<List<Map>> getStockRunningTab(String code);
+
+    R<List<Stock4WeekDomain>> getStockScreenWeekKline(String code);
+
 }

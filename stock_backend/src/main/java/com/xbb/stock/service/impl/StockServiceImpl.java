@@ -5,10 +5,11 @@ import com.alibaba.excel.EasyExcel;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xbb.stock.mapper.StockBlockRtInfoMapper;
-import com.xbb.stock.mapper.StockMarketIndexInfoMapper;
-import com.xbb.stock.mapper.StockRtInfoMapper;
+import com.xbb.stock.mapper.*;
 import com.xbb.stock.pojo.domain.*;
+import com.xbb.stock.pojo.entity.SysPermission;
+import com.xbb.stock.pojo.entity.SysRole;
+import com.xbb.stock.pojo.entity.SysUser;
 import com.xbb.stock.pojo.vo.StockInfoConfig;
 import com.xbb.stock.service.StockService;
 import com.xbb.stock.utils.DateTimeUtil;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("stockService")
 @Slf4j
@@ -41,6 +43,10 @@ public class StockServiceImpl implements StockService {
     private StockRtInfoMapper stockRtInfoMapper;
     @Autowired
     private Cache<String,Object> caffeineCache;
+    @Autowired
+    private StockOuterMarketIndexInfoMapper stockOuterMarketIndexInfoMapper;
+    @Autowired
+    private StockBusinessMapper stockBusinessMapper;
     @Override
     public R<List<InnerMarketDomain>> getInnerMarketInfo() {
         /**
@@ -62,7 +68,6 @@ public class StockServiceImpl implements StockService {
         });
         return result;
     }
-
 
     @Override
     public R<List<StockBlockDomain>> sectorAllLimit() {
@@ -231,4 +236,74 @@ public class StockServiceImpl implements StockService {
         List<Stock4EvrDayDomain> data = stockRtInfoMapper.getStock4EvrDayInfo(startDate,endDate,code);
         return R.ok(data);
     }
+
+    @Override
+    public R<List<OuterMarketDomain>> getOuterMarketInfo() {
+        /**
+         * 获取外盘最新数据
+         */
+        //1 获取最新交易时间点精确到分钟
+        Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
+        //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
+        curDate= DateTime.parse("2022-05-18 15:58:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //2 获取大盘编码集合
+        List<String> outerCodes = stockInfoConfig.getOuter();
+        //3 调用mapper查询数据
+        List<OuterMarketDomain> data= stockOuterMarketIndexInfoMapper.getMarketInfo(curDate,outerCodes);
+        //4 封装并响应
+        return R.ok(data);
+
+    }
+
+    @Override
+    public R<List<Map>> searchStockCodeandName(String searchStr) {
+        if (searchStr == null) {
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        List<Map> data = stockBusinessMapper.getStockCodeandName(searchStr);
+        return R.ok(data);
+    }
+
+    @Override
+    public R<Map> getStockDescribe(String code) {
+        Map data = stockBusinessMapper.getStockDescribe(code);
+        return R.ok(data);
+    }
+
+    @Override
+    public R<StockRtDomain> getStockDetail(String code) {
+        //获取最新交易时间点精确到分钟
+        Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
+        //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
+        curDate= DateTime.parse("2021-12-30 09:32:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        StockRtDomain data=stockRtInfoMapper.getStockDetail(curDate,code);
+        return R.ok(data);
+    }
+
+    @Override
+    public R<List<Map>> getStockRunningTab(String code) {
+        //获取最新交易时间点精确到分钟
+        Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
+        //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
+        curDate= DateTime.parse("2021-12-30 10:21:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        List<Map> data = stockRtInfoMapper.getStockRunningTab(code, curDate);
+        return R.ok(data);
+    }
+
+    @Override
+    public R<List<Stock4WeekDomain>> getStockScreenWeekKline(String code) {
+        //获取最新交易时间点精确到分钟
+        DateTime curTimeDate = DateTimeUtil.getLastDate4Stock(DateTime.now());
+        Date curDate=curTimeDate.toDate();
+        //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
+        curDate= DateTime.parse("2022-01-05 13:11:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //前推20周
+        Date pre20Week = curTimeDate.minusDays(140).toDate();
+        //mock mock测试数据
+        pre20Week= DateTime.parse("2021-12-30 10:21:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        List<Stock4WeekDomain> data = stockRtInfoMapper.getStockScreenWeekKline(code, pre20Week, curDate);
+        return R.ok(data);
+    }
+
+
 }

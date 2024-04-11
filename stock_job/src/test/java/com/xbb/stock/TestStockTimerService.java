@@ -56,4 +56,8 @@ public class TestStockTimerService {
         stockTimerTaskService.getStockBlockInfo();
     }
 
+    @Test
+    public void testgetOuterMarketInfo(){
+        stockTimerTaskService.getOuterMarketInfo();
+    }
 }

@@ -31,6 +31,14 @@ public class StockController {
     }
 
     /**
+     *需求说明: 获取外盘最新数据
+     */
+    @GetMapping("/external/index")
+    public R<List<OuterMarketDomain>> getOuterMarketInfo(){
+        return stockService.getOuterMarketInfo();
+    }
+
+    /**
      *需求说明: 获取沪深两市板块最新数据，以交易总金额降序查询，取前10条数据
      */
     @GetMapping("/sector/all")
@@ -102,8 +110,55 @@ public class StockController {
     /**
      * 单个个股日K数据查询 ，可以根据时间区间查询数日的K线数据
      */
-    @RequestMapping("/stock/screen/dkline")
+    @GetMapping("/stock/screen/dkline")
     public R<List<Stock4EvrDayDomain>> getStockScreenDKline(@RequestParam(value = "code",required = true) String code){
         return stockService.getStockScreenDKline(code);
+    }
+
+    /**
+     *  统计20周内每周内的股票数据信息，信息包含：
+     * 	股票ID、 一周内最高价、 一周内最低价 、周1开盘价、周5的收盘价、
+     * 	整周均价、以及一周内最大交易日期（一般是周五所对应日期）;
+     */
+    @GetMapping("/stock/screen/weekkline")
+    public R<List<Stock4WeekDomain>> getStockScreenWeekKline(@RequestParam(value = "code",required = true) String code){
+        return stockService.getStockScreenWeekKline(code);
+    }
+
+    /**
+     * 根据输入的个股代码，进行模糊查询，返回证券代码和证券名称
+     */
+    @GetMapping("/stock/search")
+    public R<List<Map>> searchStockCodeandName(String searchStr){
+        return stockService.searchStockCodeandName(searchStr);
+    }
+
+    /**
+     * 个股主营业务查询接口
+     */
+    @GetMapping("/stock/describe")
+    public R<Map> getStockDescribe(String code){
+        return stockService.getStockDescribe(code);
+    }
+
+    /**
+     * 获取个股最新分时行情数据，主要包含：
+     * 	开盘价、前收盘价、最新价、最高价、最低价、成交金额和成交量、交易时间信息
+     * @param code 股票编码
+     * @return
+     */
+    @GetMapping("/stock/screen/second/detail")
+    public R<StockRtDomain> getStockDetail(String code){
+        return stockService.getStockDetail(code);
+    }
+
+    /**
+     * 个股交易流水行情数据查询--查询最新交易流水，按照交易时间降序取前10
+     * @param code
+     * @return
+     */
+    @GetMapping("/stock/screen/second")
+    public R<List<Map>> getStockRunningTab(String code){
+        return stockService.getStockRunningTab(code);
     }
 }

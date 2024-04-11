@@ -1,8 +1,6 @@
 package com.xbb.stock.mapper;
 
-import com.xbb.stock.pojo.domain.Stock4EvrDayDomain;
-import com.xbb.stock.pojo.domain.Stock4MinuteDomain;
-import com.xbb.stock.pojo.domain.StockUpdownDomain;
+import com.xbb.stock.pojo.domain.*;
 import com.xbb.stock.pojo.entity.StockRtInfo;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
@@ -54,4 +52,10 @@ public interface StockRtInfoMapper {
     List<Stock4EvrDayDomain> getStock4EvrDayInfo(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("code")String code);
 
     int insertBatch(@Param("list") List<StockRtInfo> list);
+
+    StockRtDomain getStockDetail(@Param("curDate") Date curDate, @Param("code") String code);
+
+    List<Map> getStockRunningTab(@Param("code") String code, @Param("curDate") Date curDate);
+
+    List<Stock4WeekDomain> getStockScreenWeekKline(@Param("code") String code, @Param("pre20Week") Date pre20Week, @Param("curDate") Date curDate);
 }

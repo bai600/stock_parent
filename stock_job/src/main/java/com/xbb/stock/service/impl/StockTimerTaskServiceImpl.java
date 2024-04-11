@@ -3,12 +3,10 @@ package com.xbb.stock.service.impl;
 
 import com.google.common.collect.Lists;
 import com.xbb.stock.constant.ParseType;
-import com.xbb.stock.mapper.StockBlockRtInfoMapper;
-import com.xbb.stock.mapper.StockBusinessMapper;
-import com.xbb.stock.mapper.StockMarketIndexInfoMapper;
-import com.xbb.stock.mapper.StockRtInfoMapper;
+import com.xbb.stock.mapper.*;
 import com.xbb.stock.pojo.entity.StockBlockRtInfo;
 import com.xbb.stock.pojo.entity.StockMarketIndexInfo;
+import com.xbb.stock.pojo.entity.StockOuterMarketIndexInfo;
 import com.xbb.stock.pojo.entity.StockRtInfo;
 import com.xbb.stock.pojo.vo.StockInfoConfig;
 import com.xbb.stock.service.StockTimerTaskService;
@@ -63,6 +61,8 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
     private RabbitTemplate rabbitTemplate;
     @Autowired
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+    @Autowired
+    private StockOuterMarketIndexInfoMapper stockOuterMarketIndexInfoMapper;
     /**
      * 必须保证对象无状态
      */
@@ -214,6 +214,33 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
                 log.info("当前时间：{}，插入板块数据：{}成功！",DateTime.now().toString("yyyy-MM-dd HH-mm-ss"),list);
             }else {
                 log.info("当前时间：{}，插入板块数据：{}失败！",DateTime.now().toString("yyyy-MM-dd HH-mm-ss"),list);
+            }
+        });
+    }
+
+    @Override
+    public void getOuterMarketInfo() {
+        threadPoolTaskExecutor.execute(()->{
+            //定义采集的url接口
+            String url = stockInfoConfig.getOuterMarketUrl()+String.join(",",stockInfoConfig.getOuter());
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
+            int statusCodeValue = responseEntity.getStatusCodeValue();
+            if (statusCodeValue !=200) {
+                //当前请求失败
+                log.info("当前时间点：{}，采集数据失败，http状态码：{}", DateTime.now().toString("yyyy-MM-dd HH-mm-ss"), statusCodeValue);
+                return;
+            }
+            //获取js格式数据
+            String jsData = responseEntity.getBody();
+            //调用工具类解析数据
+            List<StockOuterMarketIndexInfo> list = parserStockInfoUtil.parser4StockOrMarketInfo(jsData,2);
+            log.info("采集外盘数据：{}",list);
+            //批量插入
+            int counts=stockOuterMarketIndexInfoMapper.insertBatch(list);
+            if (counts>0) {
+                log.info("当前时间：{}，插入外盘数据：{}成功！",DateTime.now().toString("yyyy-MM-dd HH-mm-ss"),list);
+            }else {
+                log.info("当前时间：{}，插入外盘数据：{}失败！",DateTime.now().toString("yyyy-MM-dd HH-mm-ss"),list);
             }
         });
     }

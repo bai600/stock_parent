@@ -2,7 +2,6 @@ package com.xbb.stock.mapper;
 
 import com.xbb.stock.pojo.domain.InnerMarketDomain;
 import com.xbb.stock.pojo.entity.StockMarketIndexInfo;
-import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

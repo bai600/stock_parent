@@ -147,7 +147,7 @@ public class StockController {
      * @param code 股票编码
      * @return
      */
-    @GetMapping("/stock/screen/second/detail")
+    @RequestMapping("/stock/screen/second/detail")
     public R<StockRtDomain> getStockDetail(String code){
         return stockService.getStockDetail(code);
     }
@@ -157,7 +157,7 @@ public class StockController {
      * @param code
      * @return
      */
-    @GetMapping("/stock/screen/second")
+    @RequestMapping("/stock/screen/second")
     public R<List<Map>> getStockRunningTab(String code){
         return stockService.getStockRunningTab(code);
     }

@@ -12,6 +12,7 @@ import java.util.Map;
 /**
  * @Entity com.xbb.stock.pojo.entity.StockMarketIndexInfo
  */
+
 public interface StockMarketIndexInfoMapper {
 
     int deleteByPrimaryKey(Long id);

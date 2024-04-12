@@ -1,9 +1,10 @@
 # Default ignored files
 .idea
-*.xml
+*.iml
 /*/target
 *.log
 *.jar
 logs
-*.iml
 /package
+/data
+test/

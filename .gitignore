@@ -6,3 +6,4 @@
 *.jar
 logs
 *.iml
+/package

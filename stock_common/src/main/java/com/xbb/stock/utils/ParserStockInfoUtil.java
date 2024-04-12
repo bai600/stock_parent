@@ -7,6 +7,7 @@ import com.xbb.stock.pojo.entity.StockMarketIndexInfo;
 import com.xbb.stock.pojo.entity.StockOuterMarketIndexInfo;
 import com.xbb.stock.pojo.entity.StockRtInfo;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -91,8 +92,8 @@ public class ParserStockInfoUtil {
                 //成金额
                 BigDecimal tradeVol = new BigDecimal(others[9]);
                 //当前日期
-                Date curDateTime = DateTimeUtil.getDateTimeWithoutSecond(others[30] + " " + others[31]).toDate();
-                //Date currentTime = DateTime.parse(others[30] + " " + others[31], DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+                //Date curDateTime = DateTimeUtil.getDateTimeWithoutSecond(others[30] + " " + others[31]).toDate();
+                Date currentTime = DateTime.parse(others[30] + " " + others[31], DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
                 StockRtInfo stockRtInfo =StockRtInfo.builder()
                         .id(idWorker.nextId())
                         .stockCode(stockCode)
@@ -104,7 +105,7 @@ public class ParserStockInfoUtil {
                         .minPrice(minPrice)
                         .tradeAmount(tradeAmount)
                         .tradeVolume(tradeVol)
-                        .curTime(curDateTime)
+                        .curTime(currentTime)
                         .build();
                 return stockRtInfo;
     }

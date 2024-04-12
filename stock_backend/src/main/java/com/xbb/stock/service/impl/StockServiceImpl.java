@@ -58,7 +58,7 @@ public class StockServiceImpl implements StockService {
             //1 获取最新交易时间点精确到分钟
             Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
             //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
-            curDate= DateTime.parse("2022-01-02 09:31:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+            //curDate= DateTime.parse("2022-01-02 09:31:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
             //2 获取大盘编码集合
             List<String> innerCodes = stockInfoConfig.getInner();
             //3 调用mapper查询数据
@@ -74,7 +74,7 @@ public class StockServiceImpl implements StockService {
         //获取股票最新交易时间点
         Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
         //mock mock数据,后续删除
-        curDate=DateTime.parse("2021-12-21 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //curDate=DateTime.parse("2021-12-21 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         //1.调用mapper接口获取数据
         List<StockBlockDomain> data=stockBlockRtInfoMapper.sectorAllLimit(curDate);
         //2.组装数据
@@ -89,7 +89,7 @@ public class StockServiceImpl implements StockService {
         //1 获取最新交易时间点精确到分钟
         Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
         //mock mock数据,后续删除
-        curDate=DateTime.parse("2021-12-30 09:32:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //curDate=DateTime.parse("2021-12-30 09:32:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         //2设置PageHelper分页参数
         PageHelper.startPage(page,pageSize);
         //3 调用mapper查询
@@ -105,7 +105,7 @@ public class StockServiceImpl implements StockService {
         //获取最新交易时间点精确到分钟
         Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
         //mock mock数据,后续删除
-        curDate=DateTime.parse("2021-12-30 09:32:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //curDate=DateTime.parse("2021-12-30 09:32:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         //调用mapper查询
         List<StockUpdownDomain> data=stockBlockRtInfoMapper.getStockInfoLimit4(curDate);
         return R.ok(data);
@@ -116,7 +116,7 @@ public class StockServiceImpl implements StockService {
         //1.1 获取最新股票交易时间点
         DateTime curDateTime = DateTimeUtil.getLastDate4Stock(DateTime.now());
         //mock mock数据,后续删除
-        curDateTime= DateTime.parse("2022-01-06 14:25:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
+        //curDateTime= DateTime.parse("2022-01-06 14:25:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
         Date endTime = curDateTime.toDate();
         //1.2 获取最新交易时间对应的开盘时间
         Date startTime= DateTimeUtil.getOpenDate(curDateTime).toDate();
@@ -159,14 +159,14 @@ public class StockServiceImpl implements StockService {
         //获取T日最新股票交易时间点
         DateTime tEndDataTime = DateTimeUtil.getLastDate4Stock(DateTime.now());
         //mock mock数据,后续删除
-        tEndDataTime= DateTime.parse("2022-01-03 14:40:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
+        //tEndDataTime= DateTime.parse("2022-01-03 14:40:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
         Date tEndTime = tEndDataTime.toDate();
         //获取T日最新交易时间对应的开盘时间
         Date tStartTime= DateTimeUtil.getOpenDate(tEndDataTime).toDate();
         //获取T-1日时间范围
         DateTime preTEndDataTime = DateTimeUtil.getPreviousTradingDay(tEndDataTime);
         //mock mock数据,后续删除
-        preTEndDataTime= DateTime.parse("2022-01-02 14:40:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
+        //preTEndDataTime= DateTime.parse("2022-01-02 14:40:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
         Date preTEndTime = preTEndDataTime.toDate();
         Date preTStartTime= DateTimeUtil.getOpenDate(preTEndDataTime).toDate();
         //调用mapper查询
@@ -184,7 +184,7 @@ public class StockServiceImpl implements StockService {
         //获取股票最新交易时间点
         DateTime curDateTime = DateTimeUtil.getLastDate4Stock(DateTime.now());
         //mock mock数据,后续删除
-        curDateTime=DateTime.parse("2022-01-06 09:55:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
+        //curDateTime=DateTime.parse("2022-01-06 09:55:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
         Date curDate = curDateTime.toDate();
         //调用mapper查询
         List<Map> infos = stockRtInfoMapper.getStockIncreaseRangeInfoByDate(curDate);
@@ -218,7 +218,7 @@ public class StockServiceImpl implements StockService {
         //获取股票最新交易时间点
         DateTime endDateTime = DateTimeUtil.getLastDate4Stock(DateTime.now());
         //mock mock数据,后续删除
-        endDateTime=DateTime.parse("2021-12-30 14:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
+        //endDateTime=DateTime.parse("2021-12-30 14:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
         Date endDate = endDateTime.toDate();
         Date startDate= DateTimeUtil.getOpenDate(endDateTime).toDate();
         List<Stock4MinuteDomain> data = stockRtInfoMapper.getStock4MinuteInfo(startDate,endDate,code);
@@ -230,7 +230,7 @@ public class StockServiceImpl implements StockService {
         //获取查询的日期范围
         DateTime endDateTime = DateTimeUtil.getLastDate4Stock(DateTime.now());
         //mock mock数据,后续删除
-        endDateTime=DateTime.parse("2022-06-06 14:25:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
+        //endDateTime=DateTime.parse("2022-06-06 14:25:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
         Date endDate = endDateTime.toDate();
         Date startDate = endDateTime.minusMonths(4).toDate();
         List<Stock4EvrDayDomain> data = stockRtInfoMapper.getStock4EvrDayInfo(startDate,endDate,code);
@@ -245,7 +245,7 @@ public class StockServiceImpl implements StockService {
         //1 获取最新交易时间点精确到分钟
         Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
         //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
-        curDate= DateTime.parse("2022-05-18 15:58:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //curDate= DateTime.parse("2022-05-18 15:58:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         //2 获取大盘编码集合
         List<String> outerCodes = stockInfoConfig.getOuter();
         //3 调用mapper查询数据
@@ -275,7 +275,7 @@ public class StockServiceImpl implements StockService {
         //获取最新交易时间点精确到分钟
         Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
         //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
-        curDate= DateTime.parse("2021-12-30 09:32:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //curDate= DateTime.parse("2021-12-30 09:32:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         StockRtDomain data=stockRtInfoMapper.getStockDetail(curDate,code);
         return R.ok(data);
     }
@@ -285,7 +285,7 @@ public class StockServiceImpl implements StockService {
         //获取最新交易时间点精确到分钟
         Date curDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
         //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
-        curDate= DateTime.parse("2021-12-30 10:21:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //curDate= DateTime.parse("2021-12-30 10:21:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         List<Map> data = stockRtInfoMapper.getStockRunningTab(code, curDate);
         return R.ok(data);
     }
@@ -296,11 +296,11 @@ public class StockServiceImpl implements StockService {
         DateTime curTimeDate = DateTimeUtil.getLastDate4Stock(DateTime.now());
         Date curDate=curTimeDate.toDate();
         //mock mock测试数据，后期数据通过第三方接口动态获取实时数据 可删除
-        curDate= DateTime.parse("2022-01-05 13:11:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //curDate= DateTime.parse("2022-01-05 13:11:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         //前推20周
         Date pre20Week = curTimeDate.minusDays(140).toDate();
         //mock mock测试数据
-        pre20Week= DateTime.parse("2021-12-30 10:21:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        //pre20Week= DateTime.parse("2021-12-30 10:21:00",DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         List<Stock4WeekDomain> data = stockRtInfoMapper.getStockScreenWeekKline(code, pre20Week, curDate);
         return R.ok(data);
     }

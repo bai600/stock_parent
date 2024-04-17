@@ -58,15 +58,14 @@
 
     <build>
         <!--打包名称-->
-<!--        <finalName>${project.artifactId}</finalName>-->
-        <finalName>app</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!--jar包保存位置-->
-                    <outputDirectory>../package/job</outputDirectory>
+                    <outputDirectory>../package</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
